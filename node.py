@@ -52,3 +52,13 @@ class Node(object):
 #        raw_input("Debug: Move antenna to %r degree then hit enter"\
 #                % intDegree)
 #        return
+    def select_target(self):
+        mac_strength_list = antenna.get_mac_strength_not_connected(self.strInterfaceName)
+        for i in range(len(mac_strength_list)):
+            print("index:%d BSSID %s: %d db" %(i,mac_strength_list[i][0],\
+                    mac_strength_list[i][1]))
+
+        target = input("Please enter the index of the target: ")
+        self.strTargetBSSID = mac_strength_list[int(target)][0]
+        print(self.strTargetBSSID)
+        return
