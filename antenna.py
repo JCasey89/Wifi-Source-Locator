@@ -4,6 +4,10 @@ import re
 
 # regex for 1 or more digit
 number_pattern = re.compile("[0-9]+")
+#
+bssid_pattern = re.compile("[0-9a-f]+\:[0-9a-f]+\:[0-9a-f]+\:[0-9a-f]+\:[0-9a-f]+\:[0-9a-f]+")
+signal_strength_pattern = re.compile("\-[0-9]+")
+
 
 
 #Poll signal strength when connected to AP
