@@ -80,4 +80,6 @@ def Search(nodeTracker, strDirection):
     #return the half-way point of the final angles
     intFinalDegree = int(((intHigherReadPosition-intLowerReadPosition)/2+ \
             intLowerReadPosition))
-    return intFinalDegree
+    nodeTracker.move(strDirection, intFinalDegree)
+    intFinalStrength = nodeTracker.get_average_strength_connected()
+    return (intFinalDegree, intFinalStrneght)
