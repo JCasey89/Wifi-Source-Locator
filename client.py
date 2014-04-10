@@ -2,26 +2,35 @@
 #modded from http://www.binarytides.com/programming-udp-sockets-in-python/
 
 import socket
+import sys
 
-try:
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    print("socket created")
-except:
-    print("socket failed")
+class socks(object):
+    sock = None
 
-host = raw_input("ip:") 
-port = 6869
+    def __init__(self):
+        try:
+            sock = socket.socket(socket.AF_INET, sock.SOCK_DGRAM)
+        except:
+            print("Socket Creation Failed")
+            sys.exit(1)
 
-while 1:
-    msg = raw_input("message to send: ")
-    try:
-        sock.sendto(msg, (host, port))
-        d = sock.recvfrom(1024)
-        reply = d[0]
-        addr = d[1]
-        print("server: " + reply)
-        if reply=="dead":
-            break
-    except:
-        print("send or recv fucked up")
-print("Your drunk, go home")
+
+    def connect():
+
+        host = input("ip:") 
+        port = input("port: ")
+
+        while 1:
+            msg = raw_input("message to send: ")
+            try:
+                sock.sendto(msg, (host, port))
+                data = sock.recvfrom(1024)
+                reply = data[0]
+                addr = data[1]
+                print("server: " + reply)
+                if reply=="dead":
+                    break
+            except:
+                print("send or recv failed, please check server if send succeeded\
+                        or failed to determin error")
+        print("Server Disconnected")
