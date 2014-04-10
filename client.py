@@ -1,4 +1,6 @@
+#! /usr/bin/env python3
 #modded from http://www.binarytides.com/programming-udp-sockets-in-python/
+
 import socket
 
 try:
