@@ -4,7 +4,7 @@ import antenna
 #import servo
 
 class Node(object):
-    strTargetBSSID = ""
+    strTargetBSSID = "connected"
     strInterfaceName = ""
     intServoPanDegree = 0 #Final
     intServoTiltDegree = 0 #Final
