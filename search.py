@@ -37,7 +37,7 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
 
 
 
-
+#Search 1 direction at a time
 def Search1(nodeTracker, strDirection):
 
     intHigherReadStrength = 0
@@ -85,3 +85,98 @@ def Search1(nodeTracker, strDirection):
 
     return (nodeTracker)
 
+
+
+#Alternate Pan and Tilt during Search
+def Search2(nodeTracker):
+   
+    boolLooking = True
+
+    #initialize Pan values
+    intHigherReadStrengthPan = 0
+    intHigherReadPositionPan = 180
+    intLowerReadStrengthPan = 0
+    intLowerReadPositionPan = 0
+    intWorkingRangePan = intHigherReadPositionPan - intLowerReadPositionPan
+    
+    #initialize Pan values
+    intHigherReadStrengthTilt = 0
+    intHigherReadPositionTilt = 180
+    intLowerReadStrengthTilt = 0
+    intLowerReadPositionTilt = 0
+    intWorkingRangeTilt = intHigherReadPositionTilt - intLowerReadPositionTilt
+    
+    
+    #get values for Pan varaibles
+    strDirection = "pan"
+    nodeTracker.move(strDirection, intLowerReadPositionPan) #not implimented yet
+    intLowerReadStrengthPan = nodeTracker.get_average_strength_connected()
+    nodeTracker.move(strDirection, intHigherReadPositionPan) #not implimented yet
+    intHigherReadStrengthPan = nodeTracker.get_average_strength_connected()
+    boolLowerPan = False
+    intWorkingRangePan = intWorkingRangePan/2
+
+    #get values for Tilt varaibles
+    strDirection = "tilt"
+    nodeTracker.move(strDirection, intLowerReadPositionTilt) #not implimented yet
+    intLowerReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    nodeTracker.move(strDirection, intHigherReadPositionTilt) #not implimented yet
+    intHigherReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    boolLowerTilt = False
+    intWorkingRangeTilt = intWorkingRangeTilt/2
+
+    strDirection = "pan"
+    while(boolLooking):
+        
+        if (intWorkingRangePan<2 and intWorkingRangeTilt<2):
+            boolLooking = False
+            break
+        if (strDirection == "pan"):
+            step = Search_Step(nodeTracker, intWorkingRangePan, strDirection, \
+                    intLowerReadPositionPan, intLowerReadStrengthPan,\
+                    intHigherReadPositionPan, intHigherReadStrengthPan,\
+                    boolLowerPan)
+
+            nodeTracker = step[0]
+            intWorkingRangePan = step[1]
+            intLowerReadPositionPan = step[3]
+            intHigherReadPositionPan = step[4]
+            boolLowerPan = step[5]
+            strDirection = "tilt"
+        elif(strDirection == "tilt"):
+            step = Search_Step(nodeTracker, intWorkingRangeTilt, strDirection, \
+                    intLowerReadPositionTilt, intLowerReadStrengthTilt,\
+                    intHigherReadPositionTilt, intHigherReadStrengthTilt,\
+                    boolLowerPan)
+
+            nodeTracker = step[0]
+            intWorkingRangeTilt = step[1]
+            intLowerReadPositionTilt = step[3]
+            intHigherReadPositionTilt = step[4]
+            boolLowerTilt = step[5]
+            strDirection = "pan"
+        else:
+            print("Error in Searh2 whileloop")
+            sys.exit(1)
+
+
+
+    #return the half-way point of the final angles
+    strDirection = "pan"
+    intFinalDegreePan = int(((intHigherReadPositionPan-intLowerReadPositionPan)/2+ \
+            intLowerReadPositionPan))
+    nodeTracker.move(strDirection, intFinalDegreePan)
+
+    strDirection = "tilt"
+    intFinalDegreeTilt = int(((intHigherReadPositionTilt-intLowerReadPositionTilt)/2+ \
+            intLowerReadPositionTilt))
+    nodeTracker.move(strDirection, intFinalDegreeTilt)
+
+    intFinalStrength = nodeTracker.get_average_strength_connected()
+    
+    nodeTracker.intServoPanDegree = intFinalDegreePan
+    nodeTracker.intServoTiltDegree = intFinalDegreeTilt
+
+    nodeTracker.intWifiStrength = intFinalStrength
+
+    return (nodeTracker)
