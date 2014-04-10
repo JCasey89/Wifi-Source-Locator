@@ -3,37 +3,31 @@ import node
 import sys
 
 def Search_Step(nodeTracker, intWorkingRange, strDirection, \
-        intLowerReadPosition, intHigherReadPosition, boolLower):
+        intLowerReadPosition, intLowerReadStrength,\
+        intHigherReadPosition, intHigherReadStrength,\
+        boolLower):
     #binary search based off signal strengths
     if (intLowerReadStrength > intHigherReadStrength):
         intHigherReadPosition = int(intHigherReadPosition - intWorkingRange)
         boolLower = True
-        print("->")
 
     elif (intHigherReadStrength > intLowerReadStrength):
         intLowerReadPosition = int(intLowerReadPosition + intWorkingRange)
-        print("<-")
         boolLower = False
     elif (boolLower):
         intWorkingRange =- 1
         intLowerReadPosition = intLowerReadPosition - 2
-        nodeTracker.Move(strDirection, intLowerReadPosition)
-        intLowerReadStrength = nodeTracker.get_average_strength_connected()
-        continue
     elif (not(boolLower)):
         intWorkingRange =- 1
         intHigherReadPosition = intHigherReadPosition - 2
-        nodeTracker.Move(strDirection, intHigherReadPosition)
-        intHigherReadStrength = nodeTracker.get_average_strength_connected()
-        continue
     else:
         print("Something bad happened during the search")
-        return -1
+        sys.exit(1)
     if (boolLower):
-        nodeTracker.Move(strDirection, intHigherReadPosition)
+        nodeTracker.move(strDirection, intHigherReadPosition)
         intHigherReadStrength = nodeTracker.get_average_strength_connected()
     else:
-        nodeTracker.Move(strDirection, intLowerReadPosition)
+        nodeTracker.move(strDirection, intLowerReadPosition)
         intLowerReadStrength = nodeTracker.get_average_strength_connected()
     intWorkingRange = intWorkingRange/2
     
