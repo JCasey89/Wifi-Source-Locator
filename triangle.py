@@ -1,4 +1,4 @@
-#! /usr/bin/env Python3
+#! /usr/bin/env python3
 
 
 def distance(node1, node2):
