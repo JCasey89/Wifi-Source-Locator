@@ -38,17 +38,15 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
 
 
 
-def Search(nodeTracker, strDirection):
+def Search1(nodeTracker, strDirection):
+
+    intHigherReadStrength = 0
     intHigherReadPosition = 180
+    intLowerReadStrenth = 0
     intLowerReadPosition = 0
     intWorkingRange = intHigherReadPosition - intLowerReadPosition
     boolLooking = True
     
-#    assert type(strDirection) is StringType,\
-#            "strDirection needs to be string type, current val is: %r"\
-#            % strDirection
-    
-
     #get signal strengths from current max and min degrees
     nodeTracker.move(strDirection, intLowerReadPosition) #not implimented yet
     intLowerReadStrength = nodeTracker.get_average_strength_connected()
@@ -62,7 +60,9 @@ def Search(nodeTracker, strDirection):
             boolLooking = False
             break
         step = Search_Step(nodeTracker, intWorkingRange, strDirection, \
-                intLowerReadPosition, intHigherReadPosition, boolLower)
+                intLowerReadPosition, intLowerReadStrenght,\
+                intHigherReadPosition, intHigherReadStrength,\
+                boolLower)
 
         nodeTracker = step[0]
         intWorkingRange = step[1]
@@ -76,4 +76,12 @@ def Search(nodeTracker, strDirection):
             intLowerReadPosition))
     nodeTracker.move(strDirection, intFinalDegree)
     intFinalStrength = nodeTracker.get_average_strength_connected()
-    return (intFinalDegree, intFinalStrneght)
+
+    if (strDirection == "pan"):
+        nodeTracker.intServoPanDegree = intFinalDegree
+    elif (strDirection == "tilt"):
+        nodeTracker.intServoTiltDegree = intFinalDegree
+    nodeTracker.intWifiStrength = intFinalStrength
+
+    return (nodeTracker)
+
