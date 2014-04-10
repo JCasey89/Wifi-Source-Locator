@@ -1,6 +1,6 @@
 
 import node
-
+import sys
 
 def Search_Step(nodeTracker, intWorkingRange, strDirection, \
         intLowerReadPosition, intHigherReadPosition, boolLower):
