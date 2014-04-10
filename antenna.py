@@ -18,7 +18,7 @@ def get_strength_connected(strInterface):
             shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process_line = read_process.stdout.readline()
 
-    file_line = file_line.split()
+    process_line = process_line.split()
 # pull out the digits from the signal level value
     signal_strength = number_pattern.search(str(process_line[3]))
     sig_str = signal_strength.group()
