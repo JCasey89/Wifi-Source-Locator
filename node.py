@@ -20,6 +20,11 @@ class Node(object):
     def __init__(self, strName):
         self.strInterfaceName = str(strName)
 
+    def __str__(self):
+        return self.strTargetBSSID + ":" + self.strInterfaceName + ":" + \
+                str(self.intServoPanDegree) + ":" + str(self.intServoTiltDegree) + ":" +\
+                str(self.intWifiStrength)
+
     #wrapper to get signal strength
     #returns -db
     def get_strength_connected(self):
