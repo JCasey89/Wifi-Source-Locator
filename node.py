@@ -1,3 +1,4 @@
+#! /usr/bin/env Python3
 import time
 import antenna
 #import servo
