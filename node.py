@@ -33,7 +33,7 @@ class Node(object):
     def get_average_strength_connected(self):
         intTotalStrengths = 0
         
-        for i in range(5):#1 second debounce
+        for i in range(5):#1 second
             intTotalStrengths += self.get_strength_connected()
             time.sleep(0.2)
         intAverageStrength = int(intTotalStrengths/5)
