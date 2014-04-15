@@ -46,8 +46,11 @@ class Node(object):
     #outputs:
     #   boolSuccess
     def move(self, strDirection, intDegree):
-        input("Debug: %r antenna to %r degree then hit enter"\
+#       input(input("Debug: %r antenna to %r degree then hit enter"\
+#                 % (strDirection, intDegree))
+        print("Debug: %ring antenna to %r degrees"\
                  % (strDirection, intDegree))
+        time.sleep(1)
         return
 
 #    def pan(intDegree):
