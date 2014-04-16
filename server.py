@@ -30,9 +30,10 @@ while 1:
             for i in range(1,len(nodeData)):
                 sock.sendto("dead", nodeData[i][0])
         break
-    reply = "recieved: " + data
-    sock.sendto(reply, addr)
-    print("Message[" +addr[0] + ":" + str(addr[1])+ '] - ' + data.strip())
+    reply = "recieved"
+    sock.sendto(reply.encode(), addr)
+    print("Message[" +str(addr[0]) + ":" + str(addr[1])+ '] - ' +\
+            str(data.strip())[2:(len(data.strip())+2)])
     for i in range(0,len(nodeData)):
         if addr in nodeData[i]:
             nodeData[i].append(data.strip())
