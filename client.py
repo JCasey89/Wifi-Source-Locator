@@ -10,23 +10,23 @@ class socks(object):
 
     def __init__(self):
         try:
-            sock = socket.socket(socket.AF_INET, sock.SOCK_DGRAM)
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except:
             print("Socket Creation Failed")
             sys.exit(1)
 
 
-    def sendNodeData(host, port, msg):
+    def sendNodeData(self, host, port, msg):
         
         data = False
         while not(data):
             try:
-                sock.sendto(msg, (host, port))
-                data = sock.recvfrom(1024)
+                self.sock.sendto(msg, (host, port))
+                data = self.sock.recvfrom(1024)
                 time.sleep(5)
             except:
                 print("send or recv failed, please check server if send succeeded\
                         or failed to determin error")
                 sys.exit(1)
-        sock.close()
+        self.sock.close()
         print("Server Disconnected")
