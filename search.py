@@ -154,8 +154,8 @@ def Search1(nodeTracker, strDirection, boolConnected):
 
 
 #Alternate Pan and Tilt during Search
-def Search2(nodeTracker):
-   
+def Search2(nodeTracker, boolConnected):
+    
     boolLooking = True
 
     #initialize Pan values
@@ -176,18 +176,31 @@ def Search2(nodeTracker):
     #get values for Pan varaibles
     strDirection = "pan"
     nodeTracker.move(strDirection, intLowerReadPositionPan) #not implimented yet
-    intLowerReadStrengthPan = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intLowerReadStrengthPan = nodeTracker.get_average_strength_connected()
+    else:
+        intLowerReadStrengthPan = nodeTracker.average_target_strength()
     nodeTracker.move(strDirection, intHigherReadPositionPan) #not implimented yet
-    intHigherReadStrengthPan = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intHigherReadStrengthPan = nodeTracker.get_average_strength_connected()
+    else:
+        intHigherReadStrengthPan = nodeTracker.average_target_strength()
+
     boolLowerPan = False
     intWorkingRangePan = intWorkingRangePan/2
 
     #get values for Tilt varaibles
     strDirection = "tilt"
     nodeTracker.move(strDirection, intLowerReadPositionTilt) #not implimented yet
-    intLowerReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intLowerReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    else:
+        intLowerReadStrengthTilt = nodeTracker.average_target_strength()
     nodeTracker.move(strDirection, intHigherReadPositionTilt) #not implimented yet
-    intHigherReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intHigherReadStrengthTilt = nodeTracker.get_average_strength_connected()
+    else:
+        intHigherReadStrengthTilt = nodeTracker.average_target_strength()
     boolLowerTilt = False
     intWorkingRangeTilt = intWorkingRangeTilt/2
 
@@ -201,25 +214,27 @@ def Search2(nodeTracker):
             step = Search_Step(nodeTracker, intWorkingRangePan, strDirection, \
                     intLowerReadPositionPan, intLowerReadStrengthPan,\
                     intHigherReadPositionPan, intHigherReadStrengthPan,\
-                    boolLowerPan)
-
+                    boolLowerPan, boolConnected)
             nodeTracker = step[0]
             intWorkingRangePan = step[1]
             intLowerReadPositionPan = step[3]
             intHigherReadPositionPan = step[4]
             boolLowerPan = step[5]
+            intLowerReadStrengthPan = step[6]
+            intHigherReadStrengthPan = step[7]
             strDirection = "tilt"
         elif(strDirection == "tilt"):
             step = Search_Step(nodeTracker, intWorkingRangeTilt, strDirection, \
                     intLowerReadPositionTilt, intLowerReadStrengthTilt,\
                     intHigherReadPositionTilt, intHigherReadStrengthTilt,\
-                    boolLowerPan)
-
+                    boolLowerPan, boolConnected)
             nodeTracker = step[0]
             intWorkingRangeTilt = step[1]
             intLowerReadPositionTilt = step[3]
             intHigherReadPositionTilt = step[4]
             boolLowerTilt = step[5]
+            intLowerReadStrengthTilt = step[6]
+            intHigherReadStengthTilt = step[7]
             strDirection = "pan"
         else:
             print("Error in Searh2 whileloop")
@@ -238,7 +253,10 @@ def Search2(nodeTracker):
             intLowerReadPositionTilt))
     nodeTracker.move(strDirection, intFinalDegreeTilt)
 
-    intFinalStrength = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intFinalStrength = nodeTracker.get_average_strength_connected()
+    else:
+        intFinalStrength = nodeTracker.average_target_strength()
     
     nodeTracker.intServoPanDegree = intFinalDegreePan
     nodeTracker.intServoTiltDegree = intFinalDegreeTilt
