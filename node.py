@@ -19,8 +19,8 @@ class Node(object):
     def __str__(self):
         return self.strTargetBSSID + ":" + self.strInterfaceName + ":" + \
                 str(self.intServoPanDegree) + ":" + str(self.intServoTiltDegree) + ":" +\
-                str(self.intWifiStrength) + ":" + str(intWifiPoll_epoch) + ":" +\
-                self.GPS_data
+                str(self.intWifiStrength) + ":" + str(self.intWifiPoll_epoch) + ":" +\
+                self.strGPS_data
 
     #wrapper to get signal strength
     #returns -db
