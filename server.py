@@ -35,6 +35,8 @@ while 1:
         break
     reply = "recieved"
     sock.sendto(reply.encode(), addr)
+    #string slice from [2:len(data.strip())+2 to remove the preceding b'
+    #  and the trailing '
     print("Message[" +str(addr[0]) + ":" + str(addr[1])+ '] - ' +\
             str(data.strip())[2:(len(data.strip())+2)])
     for i in range(0,len(nodeData)):
