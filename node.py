@@ -10,13 +10,9 @@ class Node(object):
     intServoTiltDegree = 0 #Final
     intWifiStrength = 0
     intWifiPoll_epoch = 0
-    intGPS_epoch = 0
-    floatGPS_Longitude_degree = 0.0
-    floatGPS_Longitude_minute = 0.0
-    floatGPS_Latitude_degree = 0.0
-    floatGPS_Latitude_minute = 0.0
-    floatAltitude_cm = 0.0
-    
+    strGPS_data = "gps,data,go,here"
+
+
     def __init__(self, strName):
         self.strInterfaceName = str(strName)
 
