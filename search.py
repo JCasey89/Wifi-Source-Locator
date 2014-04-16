@@ -72,7 +72,7 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
 #        print("intHigherReadStrength = %d ***"%(intHigherReadStrength))
     else:
         print("error in step_search()")
-    
+        sys.exit(1)   
 
     if not(boolWasSame):
         intWorkingRange = int(intWorkingRange/2)
