@@ -45,8 +45,8 @@ class Node(object):
     def move(self, strDirection, intDegree):
 #       input(input("Debug: %r antenna to %r degree then hit enter"\
 #                 % (strDirection, intDegree))
-        print("Debug: %ring antenna to %r degrees"\
-                 % (strDirection, intDegree))
+#        print("Debug: %ring antenna to %r degrees"\
+#                 % (strDirection, intDegree))
         time.sleep(1)
         return
 
