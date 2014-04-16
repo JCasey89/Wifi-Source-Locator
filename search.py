@@ -86,7 +86,7 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
 
 
 #Search 1 direction at a time
-def Search1(nodeTracker, strDirection):
+def Search1(nodeTracker, strDirection, boolConnected):
 
     intHigherReadStrength = 0
     intHigherReadPosition = 180
@@ -97,33 +97,51 @@ def Search1(nodeTracker, strDirection):
     
     #get signal strengths from current max and min degrees
     nodeTracker.move(strDirection, intLowerReadPosition) #not implimented yet
-    intLowerReadStrength = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intLowerReadStrength = nodeTracker.get_average_strength_connected()
+    else:
+        intLowerReadStrength = nodeTracker.average_target_strength()
     nodeTracker.move(strDirection, intHigherReadPosition) #not implimented yet
-    intHigherReadStrength = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intHigherReadStrength = nodeTracker.get_average_strength_connected()
+    else:
+        intHigherReadStrength = nodeTracker.average_target_strength()
     boolLower = False
-    intWorkingRange = intWorkingRange/2
+    intWorkingRange = int(intWorkingRange/2)
+    print("Initial Higher Position Strength = %d" %(intHigherReadStrength))
+    print("Initial Lower Position Strength = %d" %(intLowerReadStrength))
     while(boolLooking):
         
         if (intWorkingRange<2):
             boolLooking = False
             break
         step = Search_Step(nodeTracker, intWorkingRange, strDirection, \
-                intLowerReadPosition, intLowerReadStrenght,\
+                intLowerReadPosition, intLowerReadStrength,\
                 intHigherReadPosition, intHigherReadStrength,\
-                boolLower)
+                boolLower, boolConnected)
 
         nodeTracker = step[0]
         intWorkingRange = step[1]
         intLowerReadPosition = step[3]
         intHigherReadPosition = step[4]
         boolLower = step[5]
-
+        intLowerReadStrength = step[6]
+        intHigherReadStrength = step[7]
 
     #return the half-way point of the final angles
     intFinalDegree = int(((intHigherReadPosition-intLowerReadPosition)/2+ \
             intLowerReadPosition))
     nodeTracker.move(strDirection, intFinalDegree)
-    intFinalStrength = nodeTracker.get_average_strength_connected()
+    if boolConnected:
+        intFinalStrength = nodeTracker.get_average_strength_connected()
+    else:
+        intFinalStrength = nodeTracker.average_target_strength()
+
+
+    if (intFinalDegree > 150):
+        intFinalDegree = 150
+    elif (intFinalDegree < 30):
+        intFinalDegree = 30
 
     if (strDirection == "pan"):
         nodeTracker.intServoPanDegree = intFinalDegree
