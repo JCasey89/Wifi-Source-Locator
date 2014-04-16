@@ -29,4 +29,5 @@ class socks(object):
             except:
                 print("send or recv failed, please check server if send succeeded\
                         or failed to determin error")
+        sock.close()
         print("Server Disconnected")
