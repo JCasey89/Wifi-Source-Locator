@@ -16,13 +16,10 @@ class socks(object):
             sys.exit(1)
 
 
-    def connect():
-
-        host = input("ip:") 
-        port = input("port: ")
-
-        while 1:
-            msg = raw_input("message to send: ")
+    def sendNodeData(host, port):
+        
+        data = False
+        while not(data):
             try:
                 sock.sendto(msg, (host, port))
                 data = sock.recvfrom(1024)
