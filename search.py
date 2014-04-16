@@ -6,34 +6,81 @@ import sys
 def Search_Step(nodeTracker, intWorkingRange, strDirection, \
         intLowerReadPosition, intLowerReadStrength,\
         intHigherReadPosition, intHigherReadStrength,\
-        boolLower):
+        boolLower, boolConnected):
+    boolWasSame = False
     #binary search based off signal strengths
     if (intLowerReadStrength > intHigherReadStrength):
         intHigherReadPosition = int(intHigherReadPosition - intWorkingRange)
         boolLower = True
-
     elif (intHigherReadStrength > intLowerReadStrength):
         intLowerReadPosition = int(intLowerReadPosition + intWorkingRange)
         boolLower = False
-    elif (boolLower):
-        intWorkingRange =- 1
-        intLowerReadPosition = intLowerReadPosition - 2
-    elif (not(boolLower)):
-        intWorkingRange =- 1
+    elif (boolLower and (intHigherReadStrength == intLowerReadStrength)):
+        print("twitching LowerReadPosition")
+        intWorkingRange = intWorkingRange - 1
+        intLowerReadPosition = intLowerReadPosition + 2
+        boolLower = True
+        boolWasSame = True
+    elif (not(boolLower) and (intHigherReadStrength == intLowerReadStrength)):
+        print("twitching HigherReadPosition")
+        intWorkingRange = intWorkingRange- 1
         intHigherReadPosition = intHigherReadPosition - 2
+        boolLower = False
+        boolWasSame = True
     else:
         print("Something bad happened during the search")
         sys.exit(1)
-    if (boolLower):
-        nodeTracker.move(strDirection, intHigherReadPosition)
-        intHigherReadStrength = nodeTracker.get_average_strength_connected()
-    else:
+   
+    print("Before Updated Strength")
+    print("intLowerReadStrength = %d"%(intLowerReadStrength))
+    print("intHigherReadStrength = %d"%(intHigherReadStrength))
+    if (boolLower and boolWasSame):
         nodeTracker.move(strDirection, intLowerReadPosition)
-        intLowerReadStrength = nodeTracker.get_average_strength_connected()
-    intWorkingRange = intWorkingRange/2
+        if (boolConnected):
+            intLowerReadStrength = nodeTracker.get_average_strength_connected()
+        else:
+            intLowerReadStrength = nodeTracker.average_target_strength()
+        print("After Updated Strength")
+        print("intLowerReadStrength = %d ***"%(intLowerReadStrength))
+        print("intHigherReadStrength = %d"%(intHigherReadStrength))
+    elif (boolLower and not(boolWasSame)):
+        nodeTracker.move(strDirection, intHigherReadPosition)
+        if (boolConnected):
+            intHigherReadStrength = nodeTracker.get_average_strength_connected()
+        else:
+            intHigherReadStrength = nodeTracker.average_target_strength()
+        print("After Updated Strength")
+        print("intLowerReadStrength = %d"%(intLowerReadStrength))
+        print("intHigherReadStrength = %d ***"%(intHigherReadStrength))
+    elif(not(boolLower) and not(boolWasSame)):
+        nodeTracker.move(strDirection, intLowerReadPosition)
+        if (boolConnected):
+            intLowerReadStrength = nodeTracker.get_average_strength_connected()
+        else:
+            intLowerReadStrength = nodeTracker.average_target_strength()
+        print("After Updated Strength")
+        print("intLowerReadStrength = %d ***"%(intLowerReadStrength))
+        print("intHigherReadStrength = %d"%(intHigherReadStrength))
+    elif(not(boolLower) and boolWasSame):
+        nodeTracker.move(strDirection, intHigherReadPosition)
+        if (boolConnected):
+            intHigherReadStrength = nodeTracker.get_average_strength_connected()
+        else:
+            intHigherReadStrength = nodeTracker.average_target_strength()
+        print("After Updated Strength")
+        print("intLowerReadStrength = %d"%(intLowerReadStrength))
+        print("intHigherReadStrength = %d ***"%(intHigherReadStrength))
+    else:
+        print("error in step_search()")
+    
+
+    if not(boolWasSame):
+        intWorkingRange = int(intWorkingRange/2)
+
     
     return (nodeTracker, intWorkingRange, strDirection, \
-            intLowerReadPosition, intHigherReadPosition, boolLower)
+            intLowerReadPosition, intHigherReadPosition, boolLower,\
+            intLowerReadStrength, intHigherReadStrength)
 
 
 
