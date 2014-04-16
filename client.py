@@ -16,7 +16,7 @@ class socks(object):
             sys.exit(1)
 
 
-    def sendNodeData(host, port):
+    def sendNodeData(host, port, msg):
         
         data = False
         while not(data):
