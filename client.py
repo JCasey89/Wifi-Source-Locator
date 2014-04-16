@@ -24,9 +24,9 @@ class socks(object):
                 self.sock.sendto(msg, (host, port))
                 data = self.sock.recvfrom(1024)
                 time.sleep(5)
-            except:
-                print("send or recv failed, please check server if send succeeded\
-                        or failed to determin error")
+            except socket.error:
+                print("send or recv failed, please check server if send" +\
+                        " succeded or failed to determine error")
                 sys.exit(1)
         self.sock.close()
         print("Server Disconnected")
