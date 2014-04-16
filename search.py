@@ -119,7 +119,6 @@ def Search1(nodeTracker, strDirection, boolConnected):
                 intLowerReadPosition, intLowerReadStrength,\
                 intHigherReadPosition, intHigherReadStrength,\
                 boolLower, boolConnected)
-
         nodeTracker = step[0]
         intWorkingRange = step[1]
         intLowerReadPosition = step[3]
@@ -237,7 +236,7 @@ def Search2(nodeTracker, boolConnected):
             intHigherReadStengthTilt = step[7]
             strDirection = "pan"
         else:
-            print("Error in Searh2 whileloop")
+            print("Error in Search2 whileloop")
             sys.exit(1)
 
 
@@ -258,9 +257,18 @@ def Search2(nodeTracker, boolConnected):
     else:
         intFinalStrength = nodeTracker.average_target_strength()
     
+    if (intFinalDegreePan > 150):
+        intFinalDegreePan = 150
+    elif (intFinalDegreePan < 30):
+        intFinalDegreePan = 30
+
+    if (intFinalDegreeTilt > 150):
+        intFinalDegreeTilt = 150
+    elif (intFinalDegreeTilt < 30):
+        intFinalDegreeTilt = 30
+
     nodeTracker.intServoPanDegree = intFinalDegreePan
     nodeTracker.intServoTiltDegree = intFinalDegreeTilt
 
     nodeTracker.intWifiStrength = intFinalStrength
-
     return (nodeTracker)
