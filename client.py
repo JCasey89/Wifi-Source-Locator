@@ -3,6 +3,7 @@
 
 import socket
 import sys
+import time
 
 class socks(object):
     sock = None
@@ -30,6 +31,7 @@ class socks(object):
                 print("server: " + reply)
                 if reply=="dead":
                     break
+                time.sleep(5)
             except:
                 print("send or recv failed, please check server if send succeeded\
                         or failed to determin error")
