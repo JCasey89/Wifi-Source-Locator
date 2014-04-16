@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 #modded from http://www.binarytides.com/programming-udp-sockets-in-python/
 import socket
-
+import sys
 
 HOST = ''
 PORT = 6869
@@ -11,16 +11,19 @@ try:
     print("socket created")
 except:
     print("socket failed")
+    sys.exit(1)
 
 try:
     sock.bind((HOST, PORT))
     print("bind complete")
 except:
     print("bind failed")
+    sys.exit(1)
 
 isIn = False
 nodeFile = open("nodeFile",mode="w")
 nodeData = [[]]
+
 while 1:
     d = sock.recvfrom(4096)
     data = d[0]
