@@ -23,8 +23,6 @@ class socks(object):
             try:
                 sock.sendto(msg, (host, port))
                 data = sock.recvfrom(1024)
-                reply = data[0]
-                addr = data[1]
                 time.sleep(5)
             except:
                 print("send or recv failed, please check server if send succeeded\
