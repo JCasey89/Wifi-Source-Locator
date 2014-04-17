@@ -94,7 +94,8 @@ def Search1(nodeTracker, strDirection, boolConnected):
     intLowerReadPosition = 0
     intWorkingRange = intHigherReadPosition - intLowerReadPosition
     boolLooking = True
-    
+    print("searching", end="")
+    sys.stdout.flush()
     #get signal strengths from current max and min degrees
     nodeTracker.move(strDirection, intLowerReadPosition) #not implimented yet
     if boolConnected:
@@ -115,6 +116,8 @@ def Search1(nodeTracker, strDirection, boolConnected):
         if (intWorkingRange<2):
             boolLooking = False
             break
+        print(".", end="")
+        sys.stdout.flush()
         step = Search_Step(nodeTracker, intWorkingRange, strDirection, \
                 intLowerReadPosition, intLowerReadStrength,\
                 intHigherReadPosition, intHigherReadStrength,\
@@ -135,7 +138,8 @@ def Search1(nodeTracker, strDirection, boolConnected):
         intFinalStrength = nodeTracker.get_average_strength_connected()
     else:
         intFinalStrength = nodeTracker.average_target_strength()
-
+    print(".")
+    sys.stdout.flush()
 
     if (intFinalDegree > 150):
         intFinalDegree = 150
@@ -171,7 +175,8 @@ def Search2(nodeTracker, boolConnected):
     intLowerReadPositionTilt = 0
     intWorkingRangeTilt = intHigherReadPositionTilt - intLowerReadPositionTilt
     
-    
+    print("searching", end="")
+    sys.stdout.flush()
     #get values for Pan varaibles
     strDirection = "pan"
     nodeTracker.move(strDirection, intLowerReadPositionPan) #not implimented yet
@@ -179,6 +184,8 @@ def Search2(nodeTracker, boolConnected):
         intLowerReadStrengthPan = nodeTracker.get_average_strength_connected()
     else:
         intLowerReadStrengthPan = nodeTracker.average_target_strength()
+    print(".", end="")
+    sys.stdout.flush()
     nodeTracker.move(strDirection, intHigherReadPositionPan) #not implimented yet
     if boolConnected:
         intHigherReadStrengthPan = nodeTracker.get_average_strength_connected()
@@ -188,6 +195,8 @@ def Search2(nodeTracker, boolConnected):
     boolLowerPan = False
     intWorkingRangePan = intWorkingRangePan/2
 
+    print(".", end="")
+    sys.stdout.flush()
     #get values for Tilt varaibles
     strDirection = "tilt"
     nodeTracker.move(strDirection, intLowerReadPositionTilt) #not implimented yet
@@ -209,6 +218,8 @@ def Search2(nodeTracker, boolConnected):
         if (intWorkingRangePan<2 and intWorkingRangeTilt<2):
             boolLooking = False
             break
+        print(".", end="")
+        sys.stdout.flush()
         if (strDirection == "pan"):
             step = Search_Step(nodeTracker, intWorkingRangePan, strDirection, \
                     intLowerReadPositionPan, intLowerReadStrengthPan,\
@@ -247,6 +258,7 @@ def Search2(nodeTracker, boolConnected):
             intLowerReadPositionPan))
     nodeTracker.move(strDirection, intFinalDegreePan)
 
+
     strDirection = "tilt"
     intFinalDegreeTilt = int(((intHigherReadPositionTilt-intLowerReadPositionTilt)/2+ \
             intLowerReadPositionTilt))
@@ -256,6 +268,9 @@ def Search2(nodeTracker, boolConnected):
         intFinalStrength = nodeTracker.get_average_strength_connected()
     else:
         intFinalStrength = nodeTracker.average_target_strength()
+    
+    print(".")
+    sys.stdout.flush()
     
     if (intFinalDegreePan > 150):
         intFinalDegreePan = 150
