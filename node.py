@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 import time
 import antenna
+import sys
 #import servo
 
 class Node(object):
@@ -30,9 +31,9 @@ class Node(object):
     def get_average_strength_connected(self):
         intTotalStrengths = 0
         
-        for i in range(5):#1 second
+        for i in range(3):#0.3 second
             intTotalStrengths += self.get_strength_connected()
-            time.sleep(0.2)
+            time.sleep(0.1)
         intAverageStrength = int(intTotalStrengths/5)
         return intAverageStrength
 
@@ -74,19 +75,19 @@ class Node(object):
         for i in range(0,5):
             if self.strTargetBSSID in mac_list[i][0]:
                 return mac_list[i][1]
-#            print("searching i = %d" %i)
-            time.sleep(0.2)
+            time.sleep(0.05)
         return (9000)
 
     def average_target_strength(self):
         total_strengths = 0
 
-        for i in range(5):
-            print("searching")
+        for i in range(2):
             strength = self.search_strength_of_target()
             if strength == 9000:
                 i = i - 1
             else:
                 total_strengths = total_strengths + strength
+            print("-", end="")
+            sys.stdout.flush()
         average_strength = int(total_strengths/5)
         return average_strength
