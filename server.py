@@ -28,10 +28,10 @@ while 1:
     d = sock.recvfrom(4096)
     data = d[0]
     addr = d[1]
-    if ((not data) or (data=="kill")):
-        if len(nodeData) > 1:
-            for i in range(1,len(nodeData)):
-                sock.sendto("dead", nodeData[i][0])
+    if ((not data) or (data.decode()=="kill")):
+        msg = "terminating"
+        msg = msg.encode()
+        sock.sendto(msg, addr)
         break
     reply = "recieved"
     sock.sendto(reply.encode(), addr)
