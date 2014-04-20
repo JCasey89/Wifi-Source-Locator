@@ -117,10 +117,7 @@ def Search1(nodeTracker, strDirection, boolConnected):
     intFinalDegree = int(((intHigherReadPosition-intLowerReadPosition)/2+ \
             intLowerReadPosition))
     nodeTracker.move(strDirection, intFinalDegree)
-    if boolConnected:
-        intFinalStrength = nodeTracker.get_average_strength_connected()
-    else:
-        intFinalStrength = nodeTracker.average_target_strength()
+    
     print(".")
     sys.stdout.flush()
 
@@ -129,11 +126,7 @@ def Search1(nodeTracker, strDirection, boolConnected):
     elif (intFinalDegree < 30):
         intFinalDegree = 30
 
-    if (strDirection == "pan"):
-        nodeTracker.intServoPanDegree = intFinalDegree
-#    elif (strDirection == "tilt"):
-#        nodeTracker.intServoTiltDegree = intFinalDegree
-#    nodeTracker.intWifiStrength = intFinalStrength
+    nodeTracker.intServoPanDegree = intFinalDegree
 
     return (nodeTracker)
 
