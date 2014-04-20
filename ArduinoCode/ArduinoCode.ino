@@ -6,13 +6,13 @@ Directly control a servo.
 
 
 Servo servo1;
-Servo servo2;
+//Servo servo2;
 
 void setup() 
 {
   Serial.begin(9600);
   servo1.attach(5); // Attach to servo in pin 5
-  servo2.attach(6); // Attach to servo in pin 6
+//  servo2.attach(6); // Attach to servo in pin 6
   servo1.write(90); // Set it dead on. 
   servo2.write(180); //Just so I know who's who
   while (! Serial); // Wait untilSerial is ready - Leonardo
@@ -31,7 +31,7 @@ void loop()
         servo1.write(ReadNumbers());
       }
       else if (inOption == 'B'){
-        servo2.write(ReadNumbers());
+//        servo2.write(ReadNumbers());
       }
       else{
         Serial.print("Invalid Option: ");
