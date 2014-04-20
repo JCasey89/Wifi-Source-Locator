@@ -8,8 +8,8 @@ class Node(object):
     strTargetBSSID = "connected"
     strInterfaceName = ""
     intServoPanDegree = 0 #Final
-    intServoTiltDegree = 0 #Final
-    intWifiStrength = 0
+#    intServoTiltDegree = 0 #Final
+#    intWifiStrength = 0
 #    intWifiPoll_epoch = 0
     floatLongitude = 0
     floatLatitude = 0
@@ -19,9 +19,8 @@ class Node(object):
 
     def __str__(self):
         return self.strTargetBSSID + ";" + self.strInterfaceName + ";" + \
-                str(self.intServoPanDegree) + ";" + str(self.intServoTiltDegree) + ";" +\
-                str(self.intWifiStrength) + ";" + str(self.floatLongitude) + ";" +\
-                str(self.floatLatitude)
+                str(self.intServoPanDegree) + ";" + \
+                str(self.floatLongitude) + ";" + str(self.floatLatitude)
 
     #wrapper to get signal strength
     #returns -db
