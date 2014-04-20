@@ -16,13 +16,11 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
         intLowerReadPosition = int(intLowerReadPosition + intWorkingRange)
         boolLower = False
     elif (boolLower and (intHigherReadStrength == intLowerReadStrength)):
-#        print("twitching LowerReadPosition")
         intWorkingRange = intWorkingRange - 1
         intLowerReadPosition = intLowerReadPosition + 2
         boolLower = True
         boolWasSame = True
     elif (not(boolLower) and (intHigherReadStrength == intLowerReadStrength)):
-#        print("twitching HigherReadPosition")
         intWorkingRange = intWorkingRange- 1
         intHigherReadPosition = intHigherReadPosition - 2
         boolLower = False
@@ -31,45 +29,30 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
         print("Something bad happened during the search")
         sys.exit(1)
    
-#    print("Before Updated Strength")
-#    print("intLowerReadStrength = %d"%(intLowerReadStrength))
-#    print("intHigherReadStrength = %d"%(intHigherReadStrength))
     if (boolLower and boolWasSame):
         nodeTracker.move(strDirection, intLowerReadPosition)
         if (boolConnected):
             intLowerReadStrength = nodeTracker.get_average_strength_connected()
         else:
             intLowerReadStrength = nodeTracker.average_target_strength()
-#        print("After Updated Strength")
-#        print("intLowerReadStrength = %d ***"%(intLowerReadStrength))
-#        print("intHigherReadStrength = %d"%(intHigherReadStrength))
     elif (boolLower and not(boolWasSame)):
         nodeTracker.move(strDirection, intHigherReadPosition)
         if (boolConnected):
             intHigherReadStrength = nodeTracker.get_average_strength_connected()
         else:
             intHigherReadStrength = nodeTracker.average_target_strength()
-#        print("After Updated Strength")
-#        print("intLowerReadStrength = %d"%(intLowerReadStrength))
-#        print("intHigherReadStrength = %d ***"%(intHigherReadStrength))
     elif(not(boolLower) and not(boolWasSame)):
         nodeTracker.move(strDirection, intLowerReadPosition)
         if (boolConnected):
             intLowerReadStrength = nodeTracker.get_average_strength_connected()
         else:
             intLowerReadStrength = nodeTracker.average_target_strength()
-#        print("After Updated Strength")
-#        print("intLowerReadStrength = %d ***"%(intLowerReadStrength))
-#        print("intHigherReadStrength = %d"%(intHigherReadStrength))
     elif(not(boolLower) and boolWasSame):
         nodeTracker.move(strDirection, intHigherReadPosition)
         if (boolConnected):
             intHigherReadStrength = nodeTracker.get_average_strength_connected()
         else:
             intHigherReadStrength = nodeTracker.average_target_strength()
-#        print("After Updated Strength")
-#        print("intLowerReadStrength = %d"%(intLowerReadStrength))
-#        print("intHigherReadStrength = %d ***"%(intHigherReadStrength))
     else:
         print("error in step_search()")
         sys.exit(1)   
@@ -96,6 +79,7 @@ def Search1(nodeTracker, strDirection, boolConnected):
     boolLooking = True
     print("searching", end="")
     sys.stdout.flush()
+    
     #get signal strengths from current max and min degrees
     nodeTracker.move(strDirection, intLowerReadPosition) #not implimented yet
     if boolConnected:
@@ -107,12 +91,11 @@ def Search1(nodeTracker, strDirection, boolConnected):
         intHigherReadStrength = nodeTracker.get_average_strength_connected()
     else:
         intHigherReadStrength = nodeTracker.average_target_strength()
+
     boolLower = False
     intWorkingRange = int(intWorkingRange/2)
-#    print("Initial Higher Position Strength = %d" %(intHigherReadStrength))
-#    print("Initial Lower Position Strength = %d" %(intLowerReadStrength))
-    while(boolLooking):
-        
+
+    while(boolLooking):    
         if (intWorkingRange<2):
             boolLooking = False
             break
