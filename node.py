@@ -18,9 +18,9 @@ class Node(object):
         self.strInterfaceName = str(strName)
 
     def __str__(self):
-        return self.strTargetBSSID + ":" + self.strInterfaceName + ":" + \
-                str(self.intServoPanDegree) + ":" + str(self.intServoTiltDegree) + ":" +\
-                str(self.intWifiStrength) + ":" + str(self.floatLongitude) + ":" +\
+        return self.strTargetBSSID + ";" + self.strInterfaceName + ";" + \
+                str(self.intServoPanDegree) + ";" + str(self.intServoTiltDegree) + ";" +\
+                str(self.intWifiStrength) + ";" + str(self.floatLongitude) + ";" +\
                 str(self.floatLatitude)
 
     #wrapper to get signal strength
@@ -87,7 +87,7 @@ class Node(object):
                 i = i - 1
             else:
                 total_strengths = total_strengths + strength
-            print("-", end="")
+            print(".", end="")
             sys.stdout.flush()
         average_strength = int(total_strengths/5)
         return average_strength
