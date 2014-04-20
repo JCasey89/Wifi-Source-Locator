@@ -6,7 +6,7 @@ import client
 import time
 
 #strInterface = input("Please enter the name of the wireless interface: ")
-strInterface = "wlp1s0"
+strInterface = str(input("interface name: "))
 tracker_1 = node.Node(strInterface)
 #tracker_2 = node.Node(strInterface)
 
@@ -74,3 +74,4 @@ else:
         cont = input("Are you done searching (y/n)? ")
         if cont == "y":
             done = True
+            break
