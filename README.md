@@ -13,5 +13,5 @@ Notes:
             initialization
         Targeting of Longitude and Latitude only
 
-
+        Node1 is EAST of Node2
 
