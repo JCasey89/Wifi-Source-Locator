@@ -36,28 +36,10 @@ class Node(object):
         intAverageStrength = int(intTotalStrengths/5)
         return intAverageStrength
 
-    #wrapper to move the servo
-    #inputs
-    #   strDirection: "pan" or "tilt"
-    #   intDegrees: degree to move to
-    #outputs:
-    #   boolSuccess
     def move(self, strDirection, intDegree):
-#       input(input("Debug: %r antenna to %r degree then hit enter"\
-#                 % (strDirection, intDegree))
-#        print("Debug: %ring antenna to %r degrees"\
-#                 % (strDirection, intDegree))
         time.sleep(1)
         return
 
-#    def pan(intDegree):
-#        raw_input("Debug: Move antenna to %r degree then hit enter"\
-#                % intDegree)
-#        return
-#    def tilt(intDegree):
-#        raw_input("Debug: Move antenna to %r degree then hit enter"\
-#                % intDegree)
-#        return
     def select_target(self):
         mac_strength_list = antenna.get_mac_strength_not_connected(self.strInterfaceName)
         for i in range(len(mac_strength_list)):
