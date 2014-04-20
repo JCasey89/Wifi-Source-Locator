@@ -23,7 +23,7 @@ except:
 
 isIn = False
 nodeFile = open("nodeFile",mode="w")
-nodeData = [[]]
+nodeData = []
 
 while 1:
     d = sock.recvfrom(4096)
@@ -49,5 +49,51 @@ while 1:
     if not isIn:
         nodeData.append([addr, data.strip()])
 sock.close()
+
+#WARNING: Assuming that the server recieves 2 node messages from seperate IP
+#   addresses
+for i in range(0,len(nodeData)):
+    nodeData[i][0] = str(nodeData[i][0][0])
+    nodeData[i][1] = str(nodeData[i][1])[2:len(nodeData[i][1])+2]
+
 nodeFile.write(str(nodeData))
+
+node1Data = nodeData[0][1].split(";")
+
+node1 = node.Node(node1Data[1])
+node1.strTargetBSSID = node1Data[0]
+node1.intServoPanDegree = int(node1Data[2])
+node1.floatLongitude = float(node1Data[3])
+node1.floatLatitude = float(node1Data[4])
+
+node2Data = nodeData[1][1].split(";")
+
+node2 = node.Node(node2Data[1])
+node2.strTargetBSSID = node2Data[0]
+node2.intServoPanDegree = int(node2Data[2])
+node2.floatLongitude = float(node2Data[3])
+node2.floatLatitude = float(node2Data[4])
+
+print(node1)
+print(node2)
+
+#set arg1 to east node
+if (node1.floatLongitude > node2.floatLongitude):
+    target = triangle.triangulate(node1, node2)
+elif (node1.floatLongitude < node2.floatLongitude):
+    target = triangle.triangulate(node2, node1)
+elif (node1.floatLongitude == node2.floatLongitude):
+    if ((node1.floatLatitude != node2.floatLatitude) and \
+            (node1.intServoPanDegree != 90) or (node2.intServoPanDegree != 90)):
+        target = triangle.triangulate(node1, node2)
+    else:
+        print("Unable to form a triangle for triangulation")
+        sys.exit(1)
+else:
+    print("Error: unable to triangulate")
+    sys.exit(1)
+
+print("Target Longitude,Latitude: ", end="")
+print(target)
+nodeFile.write(str(target))
 nodeFile.close()
