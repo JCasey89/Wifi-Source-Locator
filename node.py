@@ -71,8 +71,8 @@ class Node(object):
 
     def search_strength_of_target(self):
         mac_list = antenna.get_mac_strength_not_connected(self.strInterfaceName)
-        for i in range(0,5):
-            if self.strTargetBSSID in mac_list[i][0]:
+        for i in range(0,len(mac_list)):
+            if self.strTargetBSSID == mac_list[i][0]:
                 return mac_list[i][1]
             time.sleep(0.05)
         return (9000)
@@ -84,6 +84,7 @@ class Node(object):
             strength = self.search_strength_of_target()
             if strength == 9000:
                 i = i - 1
+                print("Looking for target")
             else:
                 total_strengths = total_strengths + strength
             print(".", end="")
