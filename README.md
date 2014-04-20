@@ -14,4 +14,4 @@ Notes:
         Targeting of Longitude and Latitude only
 
         Node1 is EAST of Node2
-
+        target is north of both nodes
