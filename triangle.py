@@ -3,9 +3,10 @@ import math
 import node
 import sys
 
-def distance(a, b):
+def distance(y, x):
     
-    c = math.sqrt(a*a + b*b)
+    return math.sqrt((x*x) + (y*y))
+
 
     return c
 
