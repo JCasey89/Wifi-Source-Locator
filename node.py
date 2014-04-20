@@ -10,7 +10,7 @@ class Node(object):
     intServoPanDegree = 0 #Final
     intServoTiltDegree = 0 #Final
     intWifiStrength = 0
-    intWifiPoll_epoch = 0
+#    intWifiPoll_epoch = 0
     strGPS_data = "gps,data,go,here"
 
 
@@ -20,8 +20,7 @@ class Node(object):
     def __str__(self):
         return self.strTargetBSSID + ":" + self.strInterfaceName + ":" + \
                 str(self.intServoPanDegree) + ":" + str(self.intServoTiltDegree) + ":" +\
-                str(self.intWifiStrength) + ":" + str(self.intWifiPoll_epoch) + ":" +\
-                self.strGPS_data
+                str(self.intWifiStrength) + ":" + self.strGPS_data
 
     #wrapper to get signal strength
     #returns -db
