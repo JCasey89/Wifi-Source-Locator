@@ -25,16 +25,16 @@ def triangulate(node1, node2):
     node2Long = node2.floatLongitude
     node2Lat = node2.floatLatitude
     
-    angle_B = math.radians(node1.intServoPanDegree) - \
+    angle_B = math.radians(180 - node1.intServoPanDegree) - \
             math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
     
-    angle_A = math.radians(180 - node2.intServoPanDegree) - \
+    angle_A = math.radians(node2.intServoPanDegree) - \
             math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
 
     side_c = distance(node1Lat - node2Lat, node1Long - node2Long)
 
-    angle_C = math.radians(180 - math.degrees(node1_angle_rad) -\
-            math.degrees(node2_angle_rad))
+    angle_C = math.radians(180 - math.degrees(angle_B) -\
+            math.degrees(angle_A))
     
     side_a = (side_c/math.sin(angle_C))*math.sin(angle_A)
     side_b = (side_c/math.sin(angle_C))*math.sin(angle_B)
