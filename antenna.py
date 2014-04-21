@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 import subprocess
 import re
+import time
 
 # regex for 1 or more digit
 number_pattern = re.compile("[0-9]+")
@@ -13,6 +14,7 @@ signal_strength_pattern = re.compile("\-[0-9]+")
 #Poll signal strength when connected to AP
 # returns -db stripped of all non-digit symbols
 def get_strength_connected(strInterface):
+    time.sleep(1)
 # read the relevant line of /proc/net/wireless for wireless strength
     read_process = subprocess.Popen("cat /proc/net/wireless | grep -i %r" %strInterface,\
             shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
