@@ -26,7 +26,7 @@ boolean usingInterrupt = false;
 // Set to 'true' if you want to debug and listen to the raw GPS sentences. 
 #define GPSECHO  false
 
-#define DEBUG true
+#define DEBUG false
 
 //Servo servo2;
 
@@ -145,7 +145,7 @@ void loop()
       }
   }
   
-  
+  if (DEBUG){
     // if millis() or timer wraps around, we'll just reset it
   if (timer > millis())  timer = millis();
 
@@ -175,6 +175,7 @@ void loop()
       Serial.print("Altitude: "); Serial.println(GPS.altitude);
       Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
     }
+  }
   }
 }
 
@@ -211,10 +212,21 @@ int ReadNumbers(){
 int getLocation()
 {
   if (GPS.fix) {
-    Serial.print("Location: ");
-    Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
-    Serial.print(", "); 
-    Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);
+
+    // South is negative
+    if(GPS.lat == 'S')
+    {
+      Serial.print("-");
+    }
+    Serial.print(GPS.latitude, 4);   
+    Serial.print(","); 
+    
+    // West is negative
+    if(GPS.lon == 'W')
+    {
+      Serial.print("-");
+    }    
+    Serial.print(GPS.longitude, 4);
     Serial.println();
   }
   else{
