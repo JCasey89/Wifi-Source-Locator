@@ -1,7 +1,8 @@
+#include <PWMServo.h>
+
 /*
 Directly control a servo.
  */
-#include <Servo.h>
 #include <stdlib.h>
 
 
@@ -14,7 +15,7 @@ SoftwareSerial mySerial(8, 7);
 Adafruit_GPS GPS(&mySerial);
 
 
-Servo servo1;
+PWMServo servo1;
 
 // this keeps track of whether we're using the interrupt
 // off by default!
@@ -25,7 +26,7 @@ boolean usingInterrupt = false;
 // Set to 'true' if you want to debug and listen to the raw GPS sentences. 
 #define GPSECHO  false
 
-#define DEBUG false
+#define DEBUG true
 
 //Servo servo2;
 
@@ -61,9 +62,9 @@ void setup()
   useInterrupt(false);
   
 
-  servo1.attach(5); // Attach to servo in pin 5
+  servo1.attach(9); // Attach to servo in pin 5
 //  servo2.attach(6); // Attach to servo in pin 6
-  //servo1.write(90); // Set it dead on. 
+  servo1.write(90); // Set it dead on. 
 //  servo2.write(180); //Just so I know who's who
   while (! Serial); // Wait untilSerial is ready - Leonardo
   
@@ -94,7 +95,7 @@ void useInterrupt(boolean v) {
 uint32_t timer = millis();
 void loop() 
 {
-//  Serial.println("InLoop");
+// Serial.println("InLoop");
 
   // in case you are not using the interrupt above, you'll
   // need to 'hand query' the GPS, not suggested :(
@@ -127,6 +128,7 @@ void loop()
       
       if(inOption == 'A'){
         servo1.write(ReadNumbers());
+        delay(15); // Wait for the servo to get there.
       }
       
       else if (inOption == 'B'){
@@ -144,8 +146,6 @@ void loop()
   }
   
   
-  
-/*  
     // if millis() or timer wraps around, we'll just reset it
   if (timer > millis())  timer = millis();
 
@@ -176,7 +176,6 @@ void loop()
       Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
     }
   }
-  */
 }
 
 int ReadNumbers(){
