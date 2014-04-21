@@ -1,0 +1,3 @@
+[submodule "ArduinoCode/libraries/Adafruit-GPS-Library"]
+	path = ArduinoCode/libraries/Adafruit-GPS-Library
+	url = git@github.com:adafruit/Adafruit-GPS-Library.git
