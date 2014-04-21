@@ -33,7 +33,6 @@ if (answer.lower() == "y"):
  #   search.Search2(tracker_2, connected)
  #   time2b = int(time.time())
     
-
     tracker_1.get_long_lat()
     tracker_1_data = str(tracker_1)
 #    tracker_2_data = str(tracker_2)
