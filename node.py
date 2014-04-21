@@ -2,7 +2,7 @@
 import time
 import antenna
 import sys
-#import hardware
+import hardware
 
 class Node(object):
     strTargetBSSID = "connected"
@@ -21,35 +21,30 @@ class Node(object):
         return self.strTargetBSSID + ";" + self.strInterfaceName + ";" + \
                 str(self.intServoPanDegree) + ";" + \
                 str(self.floatLongitude) + ";" + str(self.floatLatitude)
+    
+    def move(self, strDirection, intDegree):
+        hardware.write_to_pan(intDegree)
+        time.sleep(1)
+        return
+
+    def get_long_lat(self):
+        while True:
+            if not self.hasGPSFix():
+                continue
+            else:
+                location = hardware.get_location()
+                location = location.split(",")
+                lat = float(location[0])
+                lon = float(location[1])
+                return (lon, lat)
+
+    def hasGPSFix(self):
+        return hardware.is_fixed()
 
     #wrapper to get signal strength
     #returns -db
     def get_strength_connected(self):
         return (int(antenna.get_strength_connected(self.strInterfaceName) * -1))
-
-    def get_average_strength_connected(self):
-        intTotalStrengths = 0
-        
-        for i in range(3):#0.3 second
-            intTotalStrengths += self.get_strength_connected()
-            time.sleep(0.1)
-        intAverageStrength = int(intTotalStrengths/5)
-        return intAverageStrength
-
-    def move(self, strDirection, intDegree):
-#        hardware.write_to_pan(intDegree)
-        input("move to %d degrees" %(intDegree))
-        time.sleep(1)
-        return
-
-#    def get_long_lat(self):
-#        lon = hardware.getLongitude()
-#        lat = hardware.getLatitude()
-#        return (lon, lat)
-
-#    def hasGPSFix(self):
-#        return hardware.isFixed()
-
 
     def select_target(self):
         mac_strength_list = antenna.get_mac_strength_not_connected(self.strInterfaceName)
@@ -84,3 +79,12 @@ class Node(object):
             sys.stdout.flush()
         average_strength = int(total_strengths/5)
         return average_strength
+    
+    def get_average_strength_connected(self):
+        intTotalStrengths = 0
+        
+        for i in range(3):#0.3 second
+            intTotalStrengths += self.get_strength_connected()
+            time.sleep(0.1)
+        intAverageStrength = int(intTotalStrengths/5)
+        return intAverageStrength
