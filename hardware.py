@@ -4,7 +4,7 @@ import serial
 import time
 ser = serial.Serial(port='/dev/ttyACM1',
         baudrate=115200) #Check this if fail
-print(ser.name)
+#print(ser.name)
 
 degree = "0";
 
@@ -35,18 +35,18 @@ def get_location():
     return str(ser.readline().decode("utf-8").rstrip())
 
 
-while(True):
-    degree = int(input()) 
-    print("You entered" + str(degree))
-
-    print("Writing to servo A")
-    write_to_pan(degree);
-    print("Done!\n")
-    print("Checking if there is a fix")
-    if(is_fixed()):
-        print("\tGot a fix WOO!!!")
-    else:
-        print("\tNo fix, boo :( ")
-        
-    print("Getting Location:[" + get_location() + "]")
-
+#while(True):
+#    degree = int(input()) 
+#    print("You entered" + str(degree))
+#
+#    print("Writing to servo A")
+#    write_to_pan(degree);
+#    print("Done!\n")
+#    print("Checking if there is a fix")
+#    if(is_fixed()):
+#        print("\tGot a fix WOO!!!")
+#    else:
+#        print("\tNo fix, boo :( ")
+#        
+#    print("Getting Location:[" + get_location() + "]")
+#
