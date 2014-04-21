@@ -2,7 +2,7 @@
 import time
 import antenna
 import sys
-#import servo
+#import hardware
 
 class Node(object):
     strTargetBSSID = "connected"
@@ -37,8 +37,19 @@ class Node(object):
         return intAverageStrength
 
     def move(self, strDirection, intDegree):
+#        hardware.write_to_pan(intDegree)
+        intput("move to %d degrees" %(intDegree))
         time.sleep(1)
         return
+
+#    def get_long_lat(self):
+#        lon = hardware.getLongitude()
+#        lat = hardware.getLatitude()
+#        return (lon, lat)
+
+#    def hasGPSFix(self):
+#        return hardware.isFixed()
+
 
     def select_target(self):
         mac_strength_list = antenna.get_mac_strength_not_connected(self.strInterfaceName)
