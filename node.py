@@ -38,7 +38,7 @@ class Node(object):
 
     def move(self, strDirection, intDegree):
 #        hardware.write_to_pan(intDegree)
-        intput("move to %d degrees" %(intDegree))
+        input("move to %d degrees" %(intDegree))
         time.sleep(1)
         return
 
