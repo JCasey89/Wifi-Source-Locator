@@ -10,7 +10,6 @@ strInterface = str(input("interface name: "))
 tracker_1 = node.Node(strInterface)
 #tracker_2 = node.Node(strInterface)
 
-
 host_ip = input("Please enter server IP address: ")
 host_port = int(input("Please enter server port number: "))
 
@@ -34,6 +33,8 @@ if (answer.lower() == "y"):
  #   search.Search2(tracker_2, connected)
  #   time2b = int(time.time())
     
+
+    tracker_1.get_long_lat()
     tracker_1_data = str(tracker_1)
 #    tracker_2_data = str(tracker_2)
     com_1.sendNodeData(host_ip, host_port, tracker_1_data.encode())
@@ -63,7 +64,7 @@ else:
 #        time2a = int(time.time())
 #        search.Search2(tracker_2, connected)
 #        time2b = int(time.time())
-    
+        tracker_1.get_long_lat() 
         tracker_1_data = str(tracker_1)
 #        tracker_2_data = str(tracker_2)
         com_1.sendNodeData(host_ip, host_port, tracker_1_data.encode())
