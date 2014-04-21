@@ -12,8 +12,7 @@ tracker_1 = node.Node(strInterface)
 
 
 host_ip = input("Please enter server IP address: ")
-host_port = int(input("Please enter server port number: ")
-done = False
+host_port = int(input("Please enter server port number: "))
 
 answer = input("Are you connected to your target (y/n)? ")
 if (answer.lower() == "y"):
@@ -42,6 +41,7 @@ if (answer.lower() == "y"):
     print("time: %d" %(time1b - time1a))
 #    print("Alt Horz and vert: %d" %(time2b - time2a))
 else:
+    done = False
     while not done:    
         com_1 = client.socks()
 #        com_2 = client.socks()
