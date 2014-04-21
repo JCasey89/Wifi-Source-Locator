@@ -24,12 +24,20 @@ def triangulate(node1, node2):
     node1Lat = node1.floatLatitude
     node2Long = node2.floatLongitude
     node2Lat = node2.floatLatitude
-    
-    angle_B = math.radians(180 - node1.intServoPanDegree) - \
-            math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
-    
-    angle_A = math.radians(node2.intServoPanDegree) - \
-            math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
+   
+    if (node1Long != node2Long):
+        angle_B = math.radians(180 - node1.intServoPanDegree) - \
+                math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
+        
+        angle_A = math.radians(node2.intServoPanDegree) - \
+                math.atan(abs(node1Lat - node2Lat)/abs(node1Long - node2Long))
+        
+    elif (node1Long == node2Long):
+        angle_B = math.radians(180 - node1.intServoPanDegree)
+        angle_A = math.radians(node2.intServoPanDegree)
+    else:
+        print("Unable to obtain angles for triangulation")
+        sys.exit(1)
 
     side_c = distance(node1Lat - node2Lat, node1Long - node2Long)
 
