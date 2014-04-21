@@ -19,7 +19,7 @@ class Node(object):
 
     def __str__(self):
         return self.strTargetBSSID + ";" + self.strInterfaceName + ";" + \
-                str(self.intServoPanDegree) + ";" + \
+                str(180-self.intServoPanDegree) + ";" + \
                 str(self.floatLongitude) + ";" + str(self.floatLatitude)
     
     def move(self, strDirection, intDegree):
@@ -83,8 +83,8 @@ class Node(object):
     def get_average_strength_connected(self):
         intTotalStrengths = 0
         
-        for i in range(3):#0.3 second
+        for i in range(5):#0.3 second
             intTotalStrengths += self.get_strength_connected()
-            time.sleep(0.1)
+            time.sleep(0.25)
         intAverageStrength = int(intTotalStrengths/5)
         return intAverageStrength
