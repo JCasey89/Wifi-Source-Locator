@@ -72,9 +72,9 @@ def Search_Step(nodeTracker, intWorkingRange, strDirection, \
 def Search1(nodeTracker, strDirection, boolConnected):
 
     intHigherReadStrength = 0
-    intHigherReadPosition = 180
+    intHigherReadPosition = 150
     intLowerReadStrenth = 0
-    intLowerReadPosition = 0
+    intLowerReadPosition = 30
     intWorkingRange = intHigherReadPosition - intLowerReadPosition
     boolLooking = True
     print("searching", end="")
