@@ -11,13 +11,12 @@ tracker_1 = node.Node(strInterface)
 #tracker_2 = node.Node(strInterface)
 
 
-host_ip = "localhost"
-host_port = 6869
+host_ip = input("Please enter server IP address: ")
+host_port = int(input("Please enter server port number: ")
 done = False
 
-mode = input("Please enter 1 if you are connected to the target AP, otherwise\n\
-        enter 0 if you are not connected to the target AP: ")
-if (int(mode) == 1):
+answer = input("Are you connected to your target (y/n)? ")
+if (answer.lower() == "y"):
     com_1 = client.socks()
 #    com_2 = client.socks()
     
@@ -72,6 +71,6 @@ else:
         print("time: %d" %(time1b - time1a))
 #        print("Alt Horz and vert: %d" %(time2b - time2a))
         cont = input("Are you done searching (y/n)? ")
-        if cont == "y":
+        if cont.lower() == "y":
             done = True
             break
