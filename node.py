@@ -23,7 +23,7 @@ class Node(object):
                 str(self.floatLongitude) + ";" + str(self.floatLatitude)
     
     def move(self, strDirection, intDegree):
-        hardware.write_to_pan(intDegree)
+        hardware.write_to_pan(180 - intDegree)
         time.sleep(1)
         return
 
@@ -34,9 +34,9 @@ class Node(object):
             else:
                 location = hardware.get_location()
                 location = location.split(",")
-                lat = float(location[0])
-                lon = float(location[1])
-                return (lon, lat)
+                self.floatLatitude = float(location[0])
+                self.floatLongitude = float(location[1])
+                return
 
     def hasGPSFix(self):
         return hardware.is_fixed()
